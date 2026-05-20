@@ -1,9 +1,6 @@
 -- TeaERP Master Schema Definition (PostgreSQL Version)
 -- Supports Multi-Tenant Architecture, Auth, HR/Muster, Crop Intelligence, Inventory and Weather
 
-CREATE DATABASE tea_erp;
-\c tea_erp;
-
 -- Create ENUM types
 CREATE TYPE user_role AS ENUM ('admin', 'manager', 'field_officer', 'worker');
 CREATE TYPE user_status AS ENUM ('active', 'inactive', 'suspended');
@@ -30,7 +27,7 @@ CREATE TABLE estates (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     region VARCHAR(255),
-    total_area DECIMAL(10,2) COMMENT 'Total area in hectares',
+    total_area DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -64,8 +61,11 @@ CREATE TABLE blocks (
     tea_variety VARCHAR(100),
     planting_year INT,
     status block_status DEFAULT 'active',
-    polygon_coordinates JSONB COMMENT 'GeoJSON for mapping module'
+    polygon_coordinates JSONB
 );
+
+COMMENT ON COLUMN estates.total_area IS 'Total area in hectares';
+COMMENT ON COLUMN blocks.polygon_coordinates IS 'GeoJSON for mapping module';
 
 -- 4. SMART MUSTER & WORKFORCE
 CREATE TABLE workers (
