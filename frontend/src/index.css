@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+/* TeaERP Root Styles - v4 Optimized */
+
+@theme {
+  --color-tea-50: #f2fcf5;
+  --color-tea-100: #e1f8e8;
+  --color-tea-200: #c4efd3;
+  --color-tea-300: #95e0b3;
+  --color-tea-400: #5fc98d;
+  --color-tea-500: #38ad6c;
+  --color-tea-600: #278b54;
+  --color-tea-700: #226f45;
+  --color-tea-800: #1f5839;
+  --color-tea-900: #1a4930;
+  --color-tea-950: #0e291b;
+  
+  --color-slate-850: #151e2e;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  --font-sans: "Inter", "Outfit", "ui-sans-serif", "system-ui";
+  --font-outfit: "Outfit", "sans-serif";
+
+  --animate-fade-in: fadeIn 0.3s ease-out;
+  --animate-slide-up: slideUp 0.4s ease-out forwards;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-spin-slow: spin 3s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  html {
+    @apply transition-colors duration-300;
+    background-color: #f8fafc;
+    color-scheme: light;
+  }
+
+  html body {
+    background-color: transparent;
+    color: inherit;
+  }
+  
+  html.dark {
+    background-color: #020617; /* slate-950 */
+    color-scheme: dark;
+  }
+
+  html.dark body {
+    background-color: #020617;
+    color: #f8fafc; /* slate-50 */
+  }
+  
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased transition-colors duration-300;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Styles */
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-sm;
+  }
+  
+  .dark .glass-panel {
+    @apply bg-slate-900/80 backdrop-blur-lg border border-slate-700/50 shadow-md shadow-black/20;
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 bg-tea-500 text-white font-medium rounded-lg hover:bg-tea-600 active:scale-95 transition-all shadow-sm hover:shadow-tea-500/30;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-white text-slate-700 border border-slate-200 font-medium rounded-lg hover:bg-slate-50 active:scale-95 transition-all;
+  }
+  
+  .dark .btn-secondary {
+    @apply bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700;
+  }
+
+  .premium-card {
+    @apply rounded-2xl p-6 bg-white/80 backdrop-blur-lg border border-white/20 shadow-sm animate-slide-up hover:transform hover:-translate-y-1 transition-all duration-300;
+  }
+  
+  .dark .premium-card {
+    @apply bg-slate-900/80 border-slate-700/50 shadow-md shadow-black/20;
+  }
+}
+
+/* Custom Scrollbar for sleekness */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full dark:bg-slate-700;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
