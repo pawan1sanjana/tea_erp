@@ -10,10 +10,10 @@ VALUES ('Ruhuna Tea Estate', 'Southern Province', 150.50);
 INSERT INTO users (estate_id, first_name, last_name, email, password_hash, role, status)
 VALUES 
 -- System Admin
-(1, 'System', 'Admin', 'admin@teaerp.com', '$2a$10$xGhjOxh7O34545e8HQjt0.3n8seUS9ItdBs2TkldpjzOFcksQmDvW', 'admin', 'active'),
+(1, 'System', 'Admin', 'admin@teaerp.com', '$2a$10$Bsf3NJ8uBWOkBK0.T3gdhedEAyL3wjA9VQ/PZtyGVLvnrdwciu2VO', 'admin', 'active'),
 
 -- Estate Manager
-(1, 'John', 'Doe', 'manager@teaerp.com', '$2a$10$xGhjOxh7O34545e8HQjt0.3n8seUS9ItdBs2TkldpjzOFcksQmDvW', 'manager', 'active'),
+(1, 'John', 'Doe', 'manager@teaerp.com', '$2a$10$Bsf3NJ8uBWOkBK0.T3gdhedEAyL3wjA9VQ/PZtyGVLvnrdwciu2VO', 'manager', 'active'),
 
 -- Field Officer
-(1, 'Jane', 'Smith', 'field@teaerp.com', '$2a$10$xGhjOxh7O34545e8HQjt0.3n8seUS9ItdBs2TkldpjzOFcksQmDvW', 'field_officer', 'active');
+(1, 'Jane', 'Smith', 'field@teaerp.com', '$2a$10$Bsf3NJ8uBWOkBK0.T3gdhedEAyL3wjA9VQ/PZtyGVLvnrdwciu2VO', 'field_officer', 'active');
