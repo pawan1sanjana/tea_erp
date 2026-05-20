@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Leaf, Lock, Mail, ChevronRight } from 'lucide-react';
-import { useAuth } from '../hooks/useSupabase';
+import { apiClient } from '../api/client';
 
 export default function LoginPage({ onLogin, theme, onToggleTheme }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,20 +14,20 @@ export default function LoginPage({ onLogin, theme, onToggleTheme }) {
     setError('');
 
     try {
-      const data = await signIn(email, password);
-      if (data && data.session) {
-        localStorage.setItem('token', data.session.access_token);
+      const data = await apiClient.post('/auth/login', { email, password });
+      if (data && data.success) {
+        localStorage.setItem('token', data.token);
         if (data.user) {
           localStorage.setItem('user', JSON.stringify({
             id: data.user.id,
-            email: data.user.email,
-            role: 'admin', // Defaulting to admin for now, can be updated with JWT claims
-            username: data.user.email.split('@')[0]
+            email: email,
+            role: data.user.role || 'admin',
+            username: data.user.username || email.split('@')[0]
           }));
         }
         onLogin();
       } else {
-        setError('Invalid credentials');
+        setError(data.error || 'Invalid credentials');
       }
     } catch (err) {
       setError(err.message || 'Login failed. Please check your credentials.');
