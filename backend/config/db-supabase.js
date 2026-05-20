@@ -19,13 +19,24 @@ if (DB_TYPE === 'supabase') {
   supabaseClient = createClient(supabaseUrl, supabaseKey);
 
   // Also create pg pool for direct queries if needed
-  pool = new Pool({
-    host: process.env.POSTGRES_HOST,
-    port: process.env.POSTGRES_PORT || 5432,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_NAME,
-  });
+  const connectionString = process.env.POSTGRES_URL || 
+    (process.env.POSTGRES_HOST ? `postgres://${process.env.POSTGRES_USER}:${encodeURIComponent(process.env.POSTGRES_PASSWORD)}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_NAME}` : null);
+    
+  if (connectionString) {
+    pool = new Pool({
+      connectionString,
+      ssl: { rejectUnauthorized: false }
+    });
+  } else {
+    pool = new Pool({
+      host: process.env.POSTGRES_HOST,
+      port: process.env.POSTGRES_PORT || 5432,
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_NAME,
+      ssl: { rejectUnauthorized: false }
+    });
+  }
 } else if (DB_TYPE === 'postgres') {
   // Direct PostgreSQL connection
   pool = new Pool({

@@ -125,7 +125,8 @@ app.post('/api/auth/login', async (req, res) => {
       } 
     });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Auth failed' });
+    console.error('Login error:', error);
+    res.status(500).json({ success: false, error: 'Auth failed', details: error.message });
   }
 });
 
